@@ -1,8 +1,8 @@
 {
-  "name": "chrisf/svg-block",
+  "name": "chrisf/secure-block",
   "type": "wordpress-plugin",
   "license": "ISC",
-  "description": "An SVG insert block for Gutenberg",
+  "description": "A block that limits functionality/visibility of inner blocks by user role.",
   "homepage": "https://github.com/cs-ferguson/svg-block",
   "authors": [
     {
