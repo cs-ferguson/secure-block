@@ -1,0 +1,25 @@
+{
+  "name": "chrisf/svg-block",
+  "type": "wordpress-plugin",
+  "license": "ISC",
+  "description": "An SVG insert block for Gutenberg",
+  "homepage": "https://github.com/cs-ferguson/svg-block",
+  "authors": [
+    {
+      "name": "Chris Ferguson",
+      "email": "christopher.stanley.ferguson@gmail.com",
+      "homepage": "https://github.com/cs-ferguson"
+    }
+  ],
+  "keywords": [
+    "wordpress",
+    "gutenberg"
+  ],
+  "support": {
+    "issues": "https://github.com/cs-ferguson/svg-block/issues"
+  },
+  "require": {
+    "php": ">=5.5",
+    "composer/installers": "~1.0"
+  }
+}
