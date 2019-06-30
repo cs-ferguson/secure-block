@@ -20,13 +20,25 @@ function render_secure_block( $attributes, $content ) {
     return $content;
   } else {
     $dom = new DomDocument();
-  	$dom->loadXML( $content );
+    $dom->loadXML( $content );
     $finder = new DomXPath( $dom );
-    $links = $finder->evaluate( "//a" );
 
+    //div and sections - add allowed or denied attribute
+    $sections = $finder->evaluate( "//section" );
+    foreach( $sections as $section ){
+      $section->setAttribute('data-access-denied', 'true' );
+    }
+    $divs = $finder->evaluate( "//div" );
+    foreach( $divs as $div ){
+      $div->setAttribute('data-access-denied', 'true' );
+    }
+
+    //links - disable href
+    $links = $finder->evaluate( "//a" );
     foreach($links as $link){
       $link->removeAttribute('href');
     }
+
     return $dom->saveXML();
   }
 }

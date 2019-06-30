@@ -1,6 +1,6 @@
 {
   "name": "secure-block",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A gutenberg block that allows visibility to be controlled by user role",
   "main": "src/block.js",
   "scripts": {
