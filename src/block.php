@@ -36,7 +36,7 @@ function render_secure_block( $attributes, $content ) {
     //links - disable href
     $links = $finder->evaluate( "//a" );
     foreach($links as $link){
-      $link->removeAttribute('href');
+      $link->setAttribute('href','/member-only-content');
     }
 
     return $dom->saveXML();
