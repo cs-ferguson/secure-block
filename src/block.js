@@ -2,7 +2,7 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { InspectorControls, InnerBlocks } = wp.blockEditor;
 const { registerStore, withSelect } = wp.data;
 const { registerBlockType } = wp.blocks;
-const { CheckboxControl, PanelBody } = wp.components;
+const { CheckboxControl, PanelBody, TextControl } = wp.components;
 const { createElement } = wp.element;
 const { apiFetch } = wp;
 
@@ -89,6 +89,10 @@ registerBlockType('chrisf/secure-block', {
     allowedRoles: {
       default: "[]",
   		type: 'string'
+    },
+    redirectUrl: {
+      default: null,
+      type: 'string'
     }
   },
 
@@ -96,6 +100,7 @@ registerBlockType('chrisf/secure-block', {
     withSelect( ( select ) => {
       return {
   			userRoles: select('chrisf/secure-block-store').receiveUserRoles(),
+        posts: select( 'core' ).getEntityRecords( 'postType', 'pages', {} ),
   		};
     })( ( { userRoles, className, attributes, setAttributes } ) => {
       if ( ! userRoles ) {
@@ -111,13 +116,13 @@ registerBlockType('chrisf/secure-block', {
         let checked = ( currentRoles.indexOf( roleKey ) > -1 ) ? true : false ;
         console.log(checked);
         return(
-          <CheckboxControl
-            name="allowed-roles"
-            label={userRoles[roleKey]}
-            checked={ checked }
-            value={roleKey}
-            onChange={ value => checkBoxChange( value, roleKey, attributes.allowedRoles, setAttributes )}
-          />
+            <CheckboxControl
+              name="allowed-roles"
+              label={userRoles[roleKey]}
+              checked={ checked }
+              value={roleKey}
+              onChange={ value => checkBoxChange( value, roleKey, attributes.allowedRoles, setAttributes )}
+            />
         )
       })
 
@@ -126,9 +131,15 @@ registerBlockType('chrisf/secure-block', {
       return([
         <InspectorControls>
           { checkBoxes }
+          <TextControl
+            label='Redirect Links To'
+            onChange={ (value) => setAttributes({ redirectUrl: value }) }
+            value={ attributes.redirectUrl }
+            help={`Leave blank to disable links altogether. Link preview: http://${window.location.hostname}/${attributes.redirectUrl}`}
+          />
         </InspectorControls>,
-        <section>
-          SECURE BLOCK
+        <section style={{ border: '1px solid red', padding: '0 6px 12px 6px' }}>
+          <h3 style={{ color: 'red', opacity: 0.5, padding: '0.25rem 0.5rem', position: 'absolute', top: 0, left: 0, fontSize: '0.9rem', fontWeight: 'bold' }}>SECURE BLOCK</h3>
           <InnerBlocks />
         </section>
       ])

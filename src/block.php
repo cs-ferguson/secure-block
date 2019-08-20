@@ -36,7 +36,13 @@ function render_secure_block( $attributes, $content ) {
     //links - disable href
     $links = $finder->evaluate( "//a" );
     foreach($links as $link){
-      $link->setAttribute('href','/member-only-content');
+      if( strlen($attributes['redirectUrl']) < 1 ){
+        //remove href if no url set
+        $link->removeAttribute('href');
+      } else {
+        //set new url for redirect
+        $link->setAttribute('href','/'.$attributes['redirectUrl']);
+      }
     }
 
     return $dom->saveXML();
@@ -49,6 +55,10 @@ register_block_type( 'chrisf/secure-block', array(
       'allowedRoles' => array(
         'type' => 'string',
         'default' => '[]'
+      ),
+      'redirectUrl' => array(
+        'type' => 'string',
+        'default' => ''
       )
     )
   )
