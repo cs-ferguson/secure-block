@@ -27,10 +27,12 @@ function render_secure_block( $attributes, $content ) {
     $sections = $finder->evaluate( "//section" );
     foreach( $sections as $section ){
       $section->setAttribute('data-access-denied', 'true' );
+      $section->setAttribute('data-redirect-url', $attributes['redirectUrl'] );
     }
     $divs = $finder->evaluate( "//div" );
     foreach( $divs as $div ){
       $div->setAttribute('data-access-denied', 'true' );
+      $div->setAttribute('data-redirect-url', $attributes['redirectUrl'] );
     }
 
     //links - disable href
